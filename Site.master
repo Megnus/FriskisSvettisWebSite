@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div style="margin-left: auto; margin-right: auto; width: 700px; font-family: Calibri; font-size: 14px;">
+ 
+        <asp:Panel ID="LinksPanel" Runat="server" Width="99.5%" Direction="RightToLeft" Height="0px">
+            <asp:HyperLink ID="AdminLink" Text="Admin"
+                NavigateUrl="~/Secure/Admin.aspx" Runat="server"
+                ForeColor="#666666"
+                Font-Names="Verdana" Font-Size="Smaller"
+                EnableTheming="False"
+                Style="text-decoration: none; padding:10px; margin-right: 30px;" BackColor="White" />
+                <asp:LoginStatus ID="LoginStatusControl" Runat="server"
+                ForeColor="#666666"
+                Font-Names="Verdana" Font-Size="Smaller"
+                EnableTheming="False"
+                Style="text-decoration: none; padding:10px; margin-right: 30px;" LogoutAction="Redirect" LogoutPageUrl="~/Default.aspx" BackColor="white"/>
+                <span style="font-size: 10pt; color: white; fontfamily:Verdana">&nbsp;</span>
+        </asp:Panel>
+
+</table>
+            <hr style="border-top:1px; margin-bottom: 20px;">
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logga.png" Height="83px" ImageAlign="Middle" Width="84px" />
+            <span style="padding-left: 20px; font-size: 32px; font-family: Calibri; color: #666666; background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Vakanta pass som behöver vikarie</span>
+            <asp:Button ID="Button1" runat="server" Text="Lägg till ett pass"  style="margin-left:20px;"/> 
+            
+        <meta charset="utf-8" />
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
