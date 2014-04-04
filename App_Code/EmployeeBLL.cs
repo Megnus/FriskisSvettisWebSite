@@ -43,7 +43,7 @@ public class EmployeeBLL : System.Web.UI.Page
 
         cmd.Connection = con;
         cmd.Parameters.AddWithValue("@UserName", User.Identity.Name);
-        cmd.Parameters.AddWithValue("@NumberOfNo", "5");
+        cmd.Parameters.AddWithValue("@NumberOfNo", "10");
 
         da = new SqlDataAdapter(cmd);
         ds = new DataSet();     

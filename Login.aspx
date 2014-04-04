@@ -5,7 +5,137 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <style type="text/css">
         .hiddencol { display: none; }
+
+        #radio-demo input[type="radio"] {
+           position:absolute;
+           opacity: 0;
+
+           -moz-opacity: 0;
+           -webkit-opacity: 0;
+           -o-opacity: 0;
+        }
+
+        #radio-demo input[type="radio"] + label {
+           position:relative;
+           padding: 5px 0 5px 30px;
+           font-size: 16px;
+           font: 12px Verdana;
+           line-height: 50px;
+           height: 40px;
+           background-color: none;
+
+           /*padding: 25px;*/
+        }
+        #radio-demo input[type="radio"] + label:before {
+           content:"";
+           display:block;
+           position:absolute;
+           top:1px;
+           height: 20px;
+           width: 20px;
+           background: white;
+           border: 1px solid black;
+           box-shadow: inset 0px 0px 0px 5px white;
+           -webkit-box-shadow: inset 0px 0px 0px 5px white;
+           -moz-box-shadow: inset 0px 0px 0px 5px white;
+           -o-box-shadow: inset 0px 0px 0px 5px white;
+           -webkit-border-radius: 50%;
+           -moz-border-radius: 50%;
+           -o-border-radius: 50%;
+           border-radius: 50%;
+           /*box-shadow: 0 0 30px black;*/
+        }
+        #radio-demo input[type="radio"]:checked + label:before {
+           background: grey;
+        }
+
+
+        .round-button {
+            display:block;
+            width:50px;
+            height:50px;
+            line-height:50px;
+            border: 1px solid #999999;
+            border-radius: 50%;
+            color:#444444;
+            text-align:center;
+            text-decoration:none;
+            background: #EEEEEE;
+            box-shadow: 0 0 8px black;
+            font-size:40px;
+            font-weight:bold;
+        }
+        p.round-button {
+            width:52px;
+            height:52px;
+            border: 1px solid ;
+            padding: 3px;
+        }
+
+        a.round-button:hover {
+
+            box-shadow: 0 0 6px black;
+            color:#222222;
+        }
     </style>
+
+
+    <script>
+
+            window.onload = function () {
+
+                if (window.location.href.indexOf('loginfailure') > 0) {
+                    $(".xxx").css({ top: '100px' });
+                    
+                } else {
+                    $(".xxx").animate({ "top": "+=400px" }, "slow");
+                }
+
+ 
+                //alert(document.URL);
+                //alert(window.location.);
+
+        
+               // alert(window.location.href);
+                //parent.location.hash = "loaded";
+                //alert(this.href.toString());
+                //var second = getUrlVars()["ReturnUrl"];
+                //window.location = window.location + '?loaded';
+
+                $('input:radio[name="radio-group"]').change( function () {
+
+                    if ($(this).val() == 'login-user') {
+                       
+                        
+                        $("#create-user").fadeOut("fast", function () {
+                           // $("#create-user").css({ display: 'none' });
+                            $("#login-user").fadeIn("slow").css("display", "inline-block");;
+                            $("#kkk").animate({ "height": "220px" }, "fast");
+                        });
+
+                        
+                    }
+                    if ($(this).val() == 'create-user') {
+                        //$("#login-user").css({ display: 'none' });
+                        //$("#create-user").css({ display: 'inline-block' });
+                        $("#login-user").fadeOut("fast", function () {
+
+                            $("#create-user").fadeIn('slow').css("display", "inline-block");
+                            $("#kkk").animate({ "height": "280px" }, "fast");
+                        });
+                        
+                    }
+                });
+
+            
+            }
+
+            window.onbeforeunload = function () {
+               // $(".xxx").animate({ "top": "-=400px" }, "slow");
+            };
+    </script>
+
+   
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FriskisSvettisConnectionString %>" SelectCommand="SELECT Pass.PassID, Pass.Datum, Anlaggning.Namn, Vikarie.Fornamn, Vikarie.Efternamn, Traningsform .Namn FROM Pass INNER JOIN Vikarie ON Vikarie.VikarieID = Pass.OrdinarieLedare JOIN Anlaggning ON Pass.Anlaggning = Anlaggning.AnlaggningID JOIN Traningsform ON Pass.TraningsForm = Traningsform.TraningsformID WHERE Pass.PassID = @Id">
         <SelectParameters>
             <asp:Parameter Name="Id" Type="Int64"/>
@@ -32,25 +162,51 @@
     </asp:GridView>
 
 
-        <div style="height:300px; top:20%; left:0px; background-color:#EEEEEE; position:fixed; width:100%; opacity:0.8; border:1px solid black;"></div>
-        <div style="top:20%; position:fixed; width:650px; margin: 0 auto;">
-            <div style=" display:block; width:350px;  margin: 0 auto;">
-                <asp:Login ID="Login1" runat="server" display="inline"  BorderPadding="4" Font-Names="Verdana" Font-Size="1.0em" >
-                    <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
-                    <LoginButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" />
-                    <TextBoxStyle Font-Size="1.2em" BorderStyle="Solid" BorderWidth="1px" />
-                    <TitleTextStyle Font-Bold="False" Font-Size="1.4em" ForeColor="White"/>
-                </asp:Login>
-            </div>
-            <div style=" display:none; width:350px; margin: 0 auto; opacity:1.0;">
-                <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" OnCreatedUser="CreateUserWizard1_CreatedUser" style="display:inline;">
-                    <WizardSteps>
-                        <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" />
-                        <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server" />
-                    </WizardSteps>
-                </asp:CreateUserWizard>
-            </div>
+    <asp:Login ID="Login2" runat="server" DestinationPageUrl="~/User.aspx">
+    </asp:Login>
+
+
+    <div id="kkk" class="xxx" style="height:220px; top:-300px; left:0px; background-color:#EEEEEE; position:fixed; width:100%; opacity:0.8; border:1px solid black; border-left:none; border-right:none;">
+        <%--<asp:Button ID="Button2" runat="server" Text="Button" BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" />
+        <asp:LinkButton ID="LinkButton1" runat="server">LinkButton</asp:LinkButton>
+        <input id="Button3" type="button" value="button" /><asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/logga.png" OnClick="ImageButton1_Click" PostBackUrl="~/Default.aspx" />--%>
+    </div>
+    <div class="xxx" style="top:-300px; position:fixed; width:650px; margin: 0 auto;">
+        <div id="login-user" style="padding-top:40px;  display:inline-block; width:400px; height:300px; background-color:none; vertical-align:middle;">
+            <asp:Login ID="Login1" runat="server" display="inline"  BorderPadding="4" Font-Names="Verdana" Font-Size="1.0em" DestinationPageUrl="~/User.aspx" TitleText="" FailureAction="RedirectToLoginPage" OnLoggedIn="loggedin">
+                <CheckBoxStyle Font-Size="Small" Height="30px" />
+                <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
+                
+                <LoginButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" />
+                <TextBoxStyle BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px"/>
+                <TitleTextStyle Font-Bold="False" Font-Size="1.4em"/>
+                <LabelStyle Font-Size="Small" width="130px" />
+
+            </asp:Login>
         </div>
+        <div id="create-user" style="padding-top:40px; display:none; width:400px; height:300px; background-color:none; vertical-align:middle; ">
+            <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" Font-Names="Verdana" OnCreatedUser="CreateUserWizard1_CreatedUser" style="display:inline;">
+                <WizardSteps>
+                    <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" title=""/>
+                    <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server" />
+                </WizardSteps>
+                <CreateUserButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" />
+                <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
+      
+                <LabelStyle Font-Size="Small" width="130px"/>
+      
+                <TextBoxStyle BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px"/>
+                <TitleTextStyle Font-Bold="False" Font-Size="1.4em" ForeColor="White"/>
+            </asp:CreateUserWizard>
+        </div>
+        <div style="display:inline-block; position:relative; height:220px; background-color:none; vertical-align:middle;" id="radio-demo"> 
+	        <input type="radio" name="radio-group" id="first-choice" value="login-user" checked="checked"/>
+	        <label for="first-choice">Log in</label><br/>
+	        <input type="radio" name="radio-group" id="second-choice" value="create-user"/>
+	        <label for="second-choice">Skapa användare</label><br/>
+	    </div>
+        <p class="round-button"><a href="http://example.com" class="round-button">+</a></p>
+    </div>
 </asp:Content>
 
 

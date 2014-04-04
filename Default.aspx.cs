@@ -12,11 +12,14 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        GridView2.SelectRow(-1);
-        SqlDataSource1.SelectParameters["Id"].DefaultValue = "6"; //Where userID is your variable
+        
+        if (!string.IsNullOrEmpty(User.Identity.Name))
+            Response.Redirect("User.aspx", false);
+        //GridView2.SelectRow(-1);
+        //SqlDataSource1.SelectParameters["Id"].DefaultValue = "6"; //Where userID is your variable
     }
 
-    protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
+    /*protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         //System.Web.HttpContext.Current.Response.Write("asddas");
         if (e.CommandName != "NejCommand")
@@ -70,5 +73,5 @@ public partial class _Default : System.Web.UI.Page
 
 
         }
-    }
+    }*/
 }

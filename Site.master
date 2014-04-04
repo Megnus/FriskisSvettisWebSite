@@ -4,11 +4,21 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <title></title>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <script>
+
+        window.onload = function () {
+
+            //alert("welcome");
+
+        }
+
+    </script>
     <form id="form1" runat="server">
     <div style="margin-left: auto; margin-right: auto; width: 700px; font-family: Calibri; font-size: 14px;">
  
@@ -19,7 +29,8 @@
                 Font-Names="Verdana" Font-Size="Smaller"
                 EnableTheming="False"
                 Style="text-decoration: none; padding:10px; margin-right: 30px;" BackColor="White" />
-                <asp:LoginStatus ID="LoginStatusControl" Runat="server"
+                
+            <asp:LoginStatus ID="LoginStatusControl" Runat="server"
                 ForeColor="#666666"
                 Font-Names="Verdana" Font-Size="Smaller"
                 EnableTheming="False"
