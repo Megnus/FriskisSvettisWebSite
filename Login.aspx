@@ -46,7 +46,7 @@
            /*box-shadow: 0 0 30px black;*/
         }
         #radio-demo input[type="radio"]:checked + label:before {
-           background: grey;
+           background: #606060;
         }
 
 
@@ -136,20 +136,18 @@
     </script>
 
    
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FriskisSvettisConnectionString %>" SelectCommand="SELECT Pass.PassID, Pass.Datum, Anlaggning.Namn, Vikarie.Fornamn, Vikarie.Efternamn, Traningsform .Namn FROM Pass INNER JOIN Vikarie ON Vikarie.VikarieID = Pass.OrdinarieLedare JOIN Anlaggning ON Pass.Anlaggning = Anlaggning.AnlaggningID JOIN Traningsform ON Pass.TraningsForm = Traningsform.TraningsformID WHERE Pass.PassID = @Id">
-        <SelectParameters>
-            <asp:Parameter Name="Id" Type="Int64"/>
-        </SelectParameters>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:FriskisSvettisConnectionString %>" SelectCommand="SELECT DISTINCT Pass.PassID, Pass.Datum, Anlaggning.Namn, Vikarie.Anvandarnamn, Traningsform.Namn FROM Pass LEFT JOIN Vikarie ON Pass.OrdinarieLedare = Vikarie.VikarieID LEFT JOIN Anlaggning ON Pass.Anlaggning = Anlaggning.AnlaggningID LEFT JOIN Traningsform ON Pass.TraningsForm = Traningsform.TraningsformID LEFT JOIN Respons ON Pass.PassID = Respons.PassID">
+
     </asp:SqlDataSource>
     <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetEmployees" TypeName="EmployeeBLL"></asp:ObjectDataSource>
     
-    <asp:GridView style="margin-top:20px" ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" Width="100%" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="10" ForeColor="Black" GridLines="Horizontal" AllowSorting="True"  DataKeyNames="PassID">
+    <asp:GridView style="margin-top:20px" ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" Width="100%" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="10" ForeColor="Black" GridLines="Horizontal" AllowSorting="True"  DataKeyNames="PassID">
         <Columns>
             <asp:BoundField DataField="PassID" HeaderText="PassID" SortExpression="PassID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"/>
             <asp:BoundField DataField="Datum" HeaderText="Datum"/>
             <asp:BoundField DataField="Namn" HeaderText="Namn" SortExpression="Namn" />
             <asp:BoundField DataField="Namn1" HeaderText="Namn1" SortExpression="Namn1" />
-            <asp:ButtonField ButtonType="Button" CommandName="NejCommand" Text="Nej" />
+
         </Columns>
         <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
         <HeaderStyle  Font-Bold="False" ForeColor="#444444" HorizontalAlign="Left" />
@@ -161,49 +159,45 @@
         <SortedDescendingHeaderStyle BackColor="Silver" />
     </asp:GridView>
 
-
-    <asp:Login ID="Login2" runat="server" DestinationPageUrl="~/User.aspx">
-    </asp:Login>
-
-
-    <div id="kkk" class="xxx" style="height:220px; top:-300px; left:0px; background-color:#EEEEEE; position:fixed; width:100%; opacity:0.8; border:1px solid black; border-left:none; border-right:none;">
+    <div id="kkk" class="xxx" style="height:220px; top:-300px; left:0px; background-color:#FEFEFE; position:fixed; width:100%; opacity:0.8; border:1px solid #AAAAAA; border-left:none; border-right:none;">
         <%--<asp:Button ID="Button2" runat="server" Text="Button" BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" />
         <asp:LinkButton ID="LinkButton1" runat="server">LinkButton</asp:LinkButton>
         <input id="Button3" type="button" value="button" /><asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/logga.png" OnClick="ImageButton1_Click" PostBackUrl="~/Default.aspx" />--%>
     </div>
     <div class="xxx" style="top:-300px; position:fixed; width:650px; margin: 0 auto;">
-        <div id="login-user" style="padding-top:40px;  display:inline-block; width:400px; height:300px; background-color:none; vertical-align:middle;">
-            <asp:Login ID="Login1" runat="server" display="inline"  BorderPadding="4" Font-Names="Verdana" Font-Size="1.0em" DestinationPageUrl="~/User.aspx" TitleText="" FailureAction="RedirectToLoginPage" OnLoggedIn="loggedin">
+        <div id="login-user" style="padding-top:40px; background-color:none; display:inline-block; padding-left:20px; width:300px; height:240px; background-color:none; vertical-align:middle;">
+            <asp:Login ID="Login1" runat="server" display="inline"  BorderPadding="4" Font-Names="Verdana" Font-Size="1.0em" DestinationPageUrl="~/User.aspx" TitleText="" FailureAction="RedirectToLoginPage" OnLoggedIn="loggedin" LoginButtonText="Logga in">
                 <CheckBoxStyle Font-Size="Small" Height="30px" />
                 <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
                 
-                <LoginButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" />
-                <TextBoxStyle BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px"/>
+                <LoginButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px"/>
+                <TextBoxStyle BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" width="150px"/>
                 <TitleTextStyle Font-Bold="False" Font-Size="1.4em"/>
-                <LabelStyle Font-Size="Small" width="130px" />
+                <LabelStyle Font-Size="Small" width="100px" />
 
             </asp:Login>
         </div>
-        <div id="create-user" style="padding-top:40px; display:none; width:400px; height:300px; background-color:none; vertical-align:middle; ">
-            <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" Font-Names="Verdana" OnCreatedUser="CreateUserWizard1_CreatedUser" style="display:inline;">
+        <div id="create-user" style="padding-top:40px; display:none; width:320px; height:240px; background-color:none; vertical-align:middle; ">
+            <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" Font-Names="Verdana" OnCreatedUser="CreateUserWizard1_CreatedUser" style="display:inline;" CreateUserButtonText="Skapa användare">
                 <WizardSteps>
                     <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" title=""/>
                     <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server" />
                 </WizardSteps>
-                <CreateUserButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" />
+                <CreateUserButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px" />
                 <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
       
                 <LabelStyle Font-Size="Small" width="130px"/>
       
-                <TextBoxStyle BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px"/>
+                <TextBoxStyle BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" width="150px"/>
                 <TitleTextStyle Font-Bold="False" Font-Size="1.4em" ForeColor="White"/>
             </asp:CreateUserWizard>
         </div>
-        <div style="display:inline-block; position:relative; height:220px; background-color:none; vertical-align:middle;" id="radio-demo"> 
+        <div style="display:inline-block; position:relative; height:210px; background-color:none; vertical-align:middle;" id="radio-demo"> 
 	        <input type="radio" name="radio-group" id="first-choice" value="login-user" checked="checked"/>
-	        <label for="first-choice">Log in</label><br/>
+	        <label for="first-choice">Logga in</label><br/>
 	        <input type="radio" name="radio-group" id="second-choice" value="create-user"/>
-	        <label for="second-choice">Skapa användare</label><br/>
+	        <label for="second-choice">Skapa användare</label><br/><br/>
+            <asp:Button ID="Button1" runat="server" Text="Hoppa över" BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px" />
 	    </div>
         <p class="round-button"><a href="http://example.com" class="round-button">+</a></p>
     </div>

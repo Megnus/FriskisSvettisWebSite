@@ -23,12 +23,12 @@
     <div style="margin-left: auto; margin-right: auto; width: 700px; font-family: Calibri; font-size: 14px;">
  
         <asp:Panel ID="LinksPanel" Runat="server" Width="99.5%" Direction="RightToLeft" Height="0px">
-            <asp:HyperLink ID="AdminLink" Text="Admin"
+              <asp:HyperLink ID="UserLink" 
                 NavigateUrl="~/Secure/Admin.aspx" Runat="server"
                 ForeColor="#666666"
                 Font-Names="Verdana" Font-Size="Smaller"
                 EnableTheming="False"
-                Style="text-decoration: none; padding:10px; margin-right: 30px;" BackColor="White" />
+                Style="text-decoration: none; padding:10px; margin-right: 30px;" BackColor="White" Visible="False" >[AdminLink]</asp:HyperLink>
                 
             <asp:LoginStatus ID="LoginStatusControl" Runat="server"
                 ForeColor="#666666"

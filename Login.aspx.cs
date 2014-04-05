@@ -13,22 +13,22 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!string.IsNullOrEmpty(User.Identity.Name))
+            Response.Redirect("~/User.aspx", false);
     }
 
     protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)
     {
         //Insert User in the table...
-
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('user created...", true);
         SqlConnection cnn = new SqlConnection();
         cnn.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
         //SqlConnection cnn = new SqlConnection("Data Source=MAGNUS-HP\\SQLEXPRESS;Initial Catalog=FriskisSvettis;Integrated Security=True");
 
         var cmd =
-            @"INSERT INTO Vikarie (Anvandarnamn, Bild, Fornamn, Efternamn, Telefonnummer, Email, Personnummer)
-            VALUES (@UserName, null, null, null, null, @Email, null)";
-        //using (SqlConnection cnn = new SqlConnection(cmd))
-        //{
+            @"INSERT INTO Vikarie (Anvandarnamn, Bild, Namn, Telefonnummer, Email, Personnummer)
+            VALUES (@UserName, null, null, null, @Email, null)";
+        
         using (SqlCommand cmd2 = new SqlCommand(cmd, cnn))
         {
             cmd2.Parameters.AddWithValue("@UserName", CreateUserWizard1.UserName);
@@ -37,15 +37,12 @@ public partial class Login : System.Web.UI.Page
             cmd2.ExecuteNonQuery();
             cnn.Close();
         }
+
+        Response.Redirect("~/User.aspx", false);
     }
 
-    protected void sdf(object sender, EventArgs e)
-    {
-
-        Response.Redirect("User.aspx", false);
-    }
     protected void loggedin(object sender, EventArgs e)
     {
-        Response.Redirect("User.aspx", false);
+        Response.Redirect("~/User.aspx", false);
     }
 }

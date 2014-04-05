@@ -38,8 +38,9 @@ public class EmployeeBLL : System.Web.UI.Page
                             LEFT JOIN Anlaggning ON Pass.Anlaggning = Anlaggning.AnlaggningID 
                             LEFT JOIN Traningsform ON Pass.TraningsForm = Traningsform.TraningsformID 
                             LEFT JOIN Respons ON Pass.PassID = Respons.PassID
-                            WHERE Pass.AntalNej < @NumberOfNo AND Pass.PassId NOT IN (SELECT PassId FROM Respons 
-                            WHERE VikarieID = (SELECT Vikarie.VikarieID FROM Vikarie WHERE Anvandarnamn =  @UserName))";
+                            WHERE Pass.NyLedare IS NULL AND Pass.AntalNej < @NumberOfNo AND Pass.PassId NOT IN (SELECT PassId FROM Respons 
+                            WHERE VikarieID = (SELECT Vikarie.VikarieID FROM Vikarie WHERE Anvandarnamn =  @UserName)) 
+                            AND Pass.OrdinarieLedare <> (SELECT Vikarie.VikarieID FROM Vikarie WHERE Anvandarnamn =  @UserName)";
 
         cmd.Connection = con;
         cmd.Parameters.AddWithValue("@UserName", User.Identity.Name);
