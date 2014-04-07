@@ -9,7 +9,6 @@
         #radio-demo input[type="radio"] {
            position:absolute;
            opacity: 0;
-
            -moz-opacity: 0;
            -webkit-opacity: 0;
            -o-opacity: 0;
@@ -169,12 +168,10 @@
             <asp:Login ID="Login1" runat="server" display="inline"  BorderPadding="4" Font-Names="Verdana" Font-Size="1.0em" DestinationPageUrl="~/User.aspx" TitleText="" FailureAction="RedirectToLoginPage" OnLoggedIn="loggedin" LoginButtonText="Logga in">
                 <CheckBoxStyle Font-Size="Small" Height="30px" />
                 <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
-                
                 <LoginButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px"/>
                 <TextBoxStyle BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" width="150px"/>
                 <TitleTextStyle Font-Bold="False" Font-Size="1.4em"/>
                 <LabelStyle Font-Size="Small" width="100px" />
-
             </asp:Login>
         </div>
         <div id="create-user" style="padding-top:40px; display:none; width:320px; height:240px; background-color:none; vertical-align:middle; ">
@@ -185,9 +182,7 @@
                 </WizardSteps>
                 <CreateUserButtonStyle BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px" />
                 <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
-      
                 <LabelStyle Font-Size="Small" width="130px"/>
-      
                 <TextBoxStyle BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" width="150px"/>
                 <TitleTextStyle Font-Bold="False" Font-Size="1.4em" ForeColor="White"/>
             </asp:CreateUserWizard>
@@ -197,9 +192,8 @@
 	        <label for="first-choice">Logga in</label><br/>
 	        <input type="radio" name="radio-group" id="second-choice" value="create-user"/>
 	        <label for="second-choice">Skapa användare</label><br/><br/>
-            <asp:Button ID="Button1" runat="server" Text="Hoppa över" BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px" OnClick="Button1_Click" />
-        </div>
-        
+            <asp:Button ID="Button1" runat="server" Text="Återgå" BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px" OnClick="Button1_Click" />
+        </div>    
     </div>
 </asp:Content>
 

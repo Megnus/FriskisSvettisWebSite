@@ -172,8 +172,11 @@ public partial class User : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
+
+
+
         Response.Redirect("~/User.aspx", false);
-        
+
         var cmd = @"UPDATE Vikarie SET Namn = @Namn, Telefonnummer = @Telefonnummer, Email = @Email, Personnummer = @Personnummer WHERE Anvandarnamn = @User";
 
         SqlConnection cnn = new SqlConnection();
@@ -190,5 +193,66 @@ public partial class User : System.Web.UI.Page
             cmd2.ExecuteNonQuery();
             cnn.Close();
         }
+    }
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        int id = 0;
+        var cmdx = "SELECT * FROM Vikarie WHERE Anvandarnamn = @UserName";
+
+        SqlConnection cnnx = new SqlConnection();
+        cnnx.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
+
+
+        using (SqlCommand cmd2x = new SqlCommand(cmdx, cnnx))
+        {
+            cmd2x.Parameters.AddWithValue("@UserName", User.Identity.Name);
+            cnnx.Open();
+            //cmd2.ExecuteNonQuery();
+
+            SqlDataReader nwReader = cmd2x.ExecuteReader();
+            while (nwReader.Read())
+            {
+                id = (int)nwReader["VikarieID"];
+            }
+        }
+        
+        
+        
+        
+        //Response.Redirect("~/User.aspx");
+        string s1 = String.Format("{0}", Request.Form["datepicker"]);
+        string s2 = String.Format("{0}", Request.Form["someElement"]);
+        DateTime dateValue;
+        DateTime.TryParse(s1 + " " + s2, out dateValue);
+        // DateTime t = Convert.ToDateTime(s1 + " " + s2);
+        int anl = DropDownList1.SelectedIndex + 1;
+        int pass = DropDownList2.SelectedIndex + 1;
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('" + anl.ToString() + "');", true); 
+        SqlConnection cnn = new SqlConnection();
+        cnn.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
+        //SqlConnection cnn = new SqlConnection("Data Source=MAGNUS-HP\\SQLEXPRESS;Initial Catalog=FriskisSvettis;Integrated Security=True");
+
+        var cmd =
+            @"INSERT INTO Pass (Datum, Anlaggning, OrdinarieLedare, NyLedare, TraningsForm, AntalNej)
+            VALUES (@Datum, @Anlaggning, @OrdinarieLedare, null, @TraningsForm, '0')";
+
+        using (SqlCommand cmd2 = new SqlCommand(cmd, cnn))
+        {
+            cmd2.Parameters.AddWithValue("@Datum", dateValue.ToString());
+            cmd2.Parameters.AddWithValue("@Anlaggning", anl.ToString());
+            cmd2.Parameters.AddWithValue("@OrdinarieLedare", id.ToString());
+            cmd2.Parameters.AddWithValue("@TraningsForm", pass.ToString());
+            //cmd2.Parameters.AddWithValue("@Email", "");
+            cnn.Open();
+            cmd2.ExecuteNonQuery();
+            cnn.Close();
+        }
+        Response.Redirect("~/User.aspx");
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('" + DropDownList1.SelectedItem.Value + "');", true); 
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/User.aspx");
     }
 }
