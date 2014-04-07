@@ -197,9 +197,9 @@
 	        <label for="first-choice">Logga in</label><br/>
 	        <input type="radio" name="radio-group" id="second-choice" value="create-user"/>
 	        <label for="second-choice">Skapa användare</label><br/><br/>
-            <asp:Button ID="Button1" runat="server" Text="Hoppa över" BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px" />
-	    </div>
-        <p class="round-button"><a href="http://example.com" class="round-button">+</a></p>
+            <asp:Button ID="Button1" runat="server" Text="Hoppa över" BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Width="150px" Height="24px" OnClick="Button1_Click" />
+        </div>
+        
     </div>
 </asp:Content>
 

@@ -1,6 +1,42 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="User.aspx.cs" Inherits="User" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+     <style type="text/css">
+
+        .round-button {
+            display:block;
+            width:44px;
+            height:44px;
+            line-height:42px;
+            border: 1px solid #BBBBBB;
+            border-radius: 50%;
+            color:#444444;
+            text-align:center;
+            text-decoration:none;
+            background: #EEEEEE;
+            //box-shadow: 0 0 8px black;
+            font-size:30px;
+   
+        }
+        p.round-button {
+            width:46px;
+            height:46px;
+            border: 1px solid ;
+            padding: 3px;
+            margin: 0 auto;
+        }
+
+        a.round-button:hover {
+
+            box-shadow: 0 0 6px black;
+            color:#222222;
+        }
+    </style>
+
+        <p style="line-height: 0px; background-color:green; font-size: 12px; text-align:center;">Lägg till ett pass</p>
+        <p class="round-button"><a href="User.aspx?Add" class="round-button">+</a></p>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <style type="text/css">
@@ -9,54 +45,17 @@
     <script>
         window.onload = function () {
 
-            if (window.location.href.indexOf('loginfailure') > 0) {
-                $(".xxx").css({ top: '100px' });
-
-            } else {
-                $(".xxx").animate({ "top": "+=400px" }, "slow");
+            //$(".xxx").animate({ "top": "+=400px" }, "slow");
+            if (window.location.href.indexOf('Settings') > 0) {
+                showMessage();
             }
 
-
-            //alert(document.URL);
-            //alert(window.location.);
-
-
-            // alert(window.location.href);
-            //parent.location.hash = "loaded";
-            //alert(this.href.toString());
-            //var second = getUrlVars()["ReturnUrl"];
-            //window.location = window.location + '?loaded';
-
-            $('input:radio[name="radio-group"]').change(function () {
-
-                if ($(this).val() == 'login-user') {
-
-
-                    $("#create-user").fadeOut("fast", function () {
-                        // $("#create-user").css({ display: 'none' });
-                        $("#login-user").fadeIn("slow").css("display", "inline-block");;
-                        $("#kkk").animate({ "height": "220px" }, "fast");
-                    });
-
-
-                }
-                if ($(this).val() == 'create-user') {
-                    //$("#login-user").css({ display: 'none' });
-                    //$("#create-user").css({ display: 'inline-block' });
-                    $("#login-user").fadeOut("fast", function () {
-
-                        $("#create-user").fadeIn('slow').css("display", "inline-block");
-                        $("#kkk").animate({ "height": "280px" }, "fast");
-                    });
-
-                }
-            });
-
-
+            $("#message").css('opacity', 0);
         }
 
-        fitta = function () {
-            alert("hello");
+        showMessage = function () {
+            $(".xxx").animate({ "top": "+=400px" }, "slow");
+            $("#message").delay(500).fadeTo('slow', 1);
         }
     </script>
 
@@ -99,11 +98,9 @@
         <SortedDescendingCellStyle BackColor="#F7F7F7" />
         <SortedDescendingHeaderStyle BackColor="Silver" />
     </asp:GridView>
-
+     <br/>
     <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetEmployees" TypeName="EmployeeBLL"></asp:ObjectDataSource>
-        
-    <p style="padding:10px; border:1px solid #E1E1E1; border-bottom:none; background-color:#F1F1F1; font-family:Verdana; font-size:16px; margin-top:30px; margin-bottom:0px; margin-left: 0px;">Vakanta pass</p>
-
+    <br/>
         <asp:GridView style="margin-top:0px" ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" Width="100%" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="10" ForeColor="Black" GridLines="Horizontal" AllowSorting="True" OnRowCommand="GridView2_RowCommand" DataKeyNames="PassID" OnRowDataBound="GridView2_RowDataBound">    
         <Columns>
             <asp:BoundField DataField="PassID" HeaderText="PassID" SortExpression="PassID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol">
@@ -127,18 +124,18 @@
         <SortedDescendingHeaderStyle BackColor="Silver" />
     </asp:GridView>
 
-    <div id="kkk" class="xxx" style="height:220px; top:-300px; left:0px; background-color:#FEFEFE; position:fixed; width:100%; opacity:0.8; border:1px solid #AAAAAA; border-left:none; border-right:none;">
-    <div class="xxx" style="top:-300px; background-color:none; width:400px; padding-top:30px; height:180px; margin: 0 auto;">
-        
-            <asp:Label ID="Label1" runat="server" Text="Namn" Width="110px" Font-Size="Small" Font-Names="Verdana"></asp:Label>
-            <asp:TextBox ID="tbxNamn" Text="" runat="server" BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="200px" Style="margin:4px; padding-left:2px; z-index:100"></asp:TextBox><br>
-            <asp:Label ID="Label2" runat="server" Text="Telefonnummer" Width="110px" Font-Size="Small" Font-Names="Verdana"></asp:Label>
-            <asp:TextBox ID="tbxTelefon" runat="server" BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="200px" Style="margin:4px; padding-left:2px"></asp:TextBox><br>
-            <asp:Label ID="Label3" runat="server" Text="E-mail" Width="110px" Font-Size="Small" Font-Names="Verdana"></asp:Label>
-            <asp:TextBox ID="tbxEmail" runat="server" BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="200px" Style="margin:4px; padding-left:2px"></asp:TextBox><br>
-            <asp:Label ID="Label4" runat="server" Text="Personnummer" Width="110px" Font-Size="Small" Font-Names="Verdana"></asp:Label>
-            <asp:TextBox ID="tbxPersonNum" runat="server" BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="200px" Style="margin:4px; padding-left:2px"></asp:TextBox><br>
-            <asp:Button ID="Button1" runat="server" Text="Spara ändringar"  BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Style="margin-left:117px; margin-top: 4px;" Height="25px" Width="204px" OnClick="Button1_Click"/>
+    <div id="kkk" class="xxx" style="height:230px; top:-300px; left:0px; background-color:#FEFEFE; position:fixed; width:100%; opacity:0.8; border:1px solid #AAAAAA; border-left:none; border-right:none;">
+    <div class="xxx" style="top:-300px; background-color:none; width:400px; padding-top:0px; height:200px; margin: 0 auto;">
+        <p id="message" Style="display:block; margin-left:118px; margin-bottom:5px; opacity:0;">Du måste fylla i alla uppgifter...</p>
+        <asp:Label ID="Label1" runat="server" Text="Namn" Width="110px" Font-Size="Small" Font-Names="Verdana"></asp:Label>
+        <asp:TextBox ID="tbxNamn" Text="" runat="server" BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="200px" Style="margin:4px; padding-left:2px; z-index:100"></asp:TextBox><br>
+        <asp:Label ID="Label2" runat="server" Text="Telefonnummer" Width="110px" Font-Size="Small" Font-Names="Verdana"></asp:Label>
+        <asp:TextBox ID="tbxTelefon" runat="server" BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="200px" Style="margin:4px; padding-left:2px"></asp:TextBox><br>
+        <asp:Label ID="Label3" runat="server" Text="E-mail" Width="110px" Font-Size="Small" Font-Names="Verdana"></asp:Label>
+        <asp:TextBox ID="tbxEmail" runat="server" BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="200px" Style="margin:4px; padding-left:2px"></asp:TextBox><br>
+        <asp:Label ID="Label4" runat="server" Text="Personnummer" Width="110px" Font-Size="Small" Font-Names="Verdana"></asp:Label>
+        <asp:TextBox ID="tbxPersonNum" runat="server" BorderColor="black" BorderStyle="Solid" BorderWidth="1px" Height="20px" Width="200px" Style="margin:4px; padding-left:2px"></asp:TextBox><br>
+        <asp:Button ID="Button1" runat="server" Text="Spara ändringar"  BackColor="#FFFBFF" BorderColor="black" BorderStyle="dotted" BorderWidth="1px" Font-Names="Verdana" Font-Size="0.9em" Style="margin-left:117px; margin-top: 4px;" Height="25px" Width="204px" OnClick="Button1_Click" />
 
     </div>    
 </asp:Content>

@@ -32,16 +32,16 @@ public partial class User : System.Web.UI.Page
         }
        
         ContentPlaceHolder cp = (ContentPlaceHolder)this.Master.FindControl("ContentPlaceHolder1");
-        HyperLink hp = (HyperLink)this.Master.FindControl("UserLink");
-        hp.Text = "Du är inloggad som: " + User.Identity.Name;
+        Label lbl = (Label) this.Master.FindControl("UserLink");
+        lbl.Text = "Du är inloggad som: " + User.Identity.Name;
+        lbl.Visible = true;
+
+        HyperLink hp = (HyperLink)this.Master.FindControl("settings");
         hp.Visible = true;
+
         SqlDataSource1.SelectParameters["UserName"].DefaultValue = User.Identity.Name;
 
-        if (string.IsNullOrEmpty(tbxNamn.Text) 
-            || string.IsNullOrEmpty(tbxTelefon.Text) 
-            || string.IsNullOrEmpty(tbxEmail.Text) 
-            || string.IsNullOrEmpty(tbxPersonNum.Text))
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "fitta();", true);
+
 
 
         if (!string.IsNullOrEmpty(tbxNamn.Text + tbxTelefon.Text + tbxEmail.Text + tbxPersonNum.Text))
@@ -75,6 +75,12 @@ public partial class User : System.Web.UI.Page
             }
             
             cnn.Close();
+
+            if (string.IsNullOrEmpty(tbxNamn.Text)
+                || string.IsNullOrEmpty(tbxTelefon.Text)
+                || string.IsNullOrEmpty(tbxEmail.Text)
+                || string.IsNullOrEmpty(tbxPersonNum.Text))
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "showMessage();", true);
         }
     
     }
@@ -166,7 +172,7 @@ public partial class User : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "fitta();", true);
+        Response.Redirect("~/User.aspx", false);
         
         var cmd = @"UPDATE Vikarie SET Namn = @Namn, Telefonnummer = @Telefonnummer, Email = @Email, Personnummer = @Personnummer WHERE Anvandarnamn = @User";
 

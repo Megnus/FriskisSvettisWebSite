@@ -26,8 +26,8 @@ public partial class Login : System.Web.UI.Page
         //SqlConnection cnn = new SqlConnection("Data Source=MAGNUS-HP\\SQLEXPRESS;Initial Catalog=FriskisSvettis;Integrated Security=True");
 
         var cmd =
-            @"INSERT INTO Vikarie (Anvandarnamn, Bild, Namn, Telefonnummer, Email, Personnummer)
-            VALUES (@UserName, null, null, null, @Email, null)";
+            @"INSERT INTO Vikarie (Anvandarnamn, Namn, Telefonnummer, Email, Personnummer)
+            VALUES (@UserName, '', '', @Email, '')";
         
         using (SqlCommand cmd2 = new SqlCommand(cmd, cnn))
         {
@@ -39,10 +39,14 @@ public partial class Login : System.Web.UI.Page
         }
 
         Response.Redirect("~/User.aspx", false);
-    }
+    }   
 
     protected void loggedin(object sender, EventArgs e)
     {
-        Response.Redirect("~/User.aspx", false);
+        Response.Redirect("~/User.aspx");
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Default.aspx");
     }
 }

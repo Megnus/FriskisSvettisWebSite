@@ -6,8 +6,19 @@
 <head runat="server">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <title></title>
-    <asp:ContentPlaceHolder id="head" runat="server">
-    </asp:ContentPlaceHolder>
+
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+        .auto-style2 {
+            width: 554px;
+        }
+        .auto-style3 {
+            width: 29px;
+        }
+    </style>
+
 </head>
 <body>
     <script>
@@ -23,13 +34,21 @@
     <div style="margin-left: auto; margin-right: auto; width: 700px; font-family: Calibri; font-size: 14px;">
  
         <asp:Panel ID="LinksPanel" Runat="server" Width="99.5%" Direction="RightToLeft" Height="0px">
-              <asp:HyperLink ID="UserLink" 
-                NavigateUrl="~/Secure/Admin.aspx" Runat="server"
+              <asp:label ID="UserLink" 
+
+                  Runat="server"
                 ForeColor="#666666"
                 Font-Names="Verdana" Font-Size="Smaller"
                 EnableTheming="False"
-                Style="text-decoration: none; padding:10px; margin-right: 30px;" BackColor="White" Visible="False" >[AdminLink]</asp:HyperLink>
-                
+                Style="text-decoration: none; padding:10px; margin-right: 30px;" BackColor="White" Visible="False" >[AdminLink]</asp:label>
+            
+                <asp:HyperLink ID="settings" 
+                NavigateUrl="~/User.aspx?Settings" Runat="server"
+                ForeColor="#666666"
+                Font-Names="Verdana" Font-Size="Smaller"
+                EnableTheming="False"
+                Style="text-decoration: none; padding:10px; margin-right: 30px;" BackColor="White" Visible="False" >Inställningar</asp:HyperLink> 
+               
             <asp:LoginStatus ID="LoginStatusControl" Runat="server"
                 ForeColor="#666666"
                 Font-Names="Verdana" Font-Size="Smaller"
@@ -39,13 +58,23 @@
         </asp:Panel>
 
 </table>
-            <hr style="border-top:1px; margin-bottom: 20px;">
-            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logga.png" Height="83px" ImageAlign="Middle" Width="84px" />
+            <hr style="margin-bottom: 5px; height: 0px; border-top-style: none; border-top-color: inherit; border-top-width: 1px;"><br/>
+
+                 <div style="width:200px; display:inline; background-color:green;">
+                     <table cellpadding="0" cellspacing="0" class="auto-style1">
+                         <tr>
+                             <td class="auto-style2">
+                                 <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logga.png" Height="83px" ImageAlign="Middle" Width="84px" />
             <span style="padding-left: 20px; font-size: 32px; font-family: Calibri; color: #666666; background-color: transparent; font-weight: normal; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Vakanta pass som behöver vikarie</span>
-            <asp:Button ID="Button1" runat="server" Text="Lägg till ett pass"  style="margin-left:20px;"/> 
-            
-        <meta charset="utf-8" />
-                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+
+                             </td>
+                             <td>            <asp:ContentPlaceHolder id="head" runat="server"></asp:ContentPlaceHolder></td>
+                         </tr>
+                     </table>
+
+                          </div>
+            <meta charset="utf-8" />
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
     </div>
