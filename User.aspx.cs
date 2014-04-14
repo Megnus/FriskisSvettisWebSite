@@ -20,7 +20,7 @@ public partial class User : System.Web.UI.Page
         
         //ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('" + Roles.GetRolesForUser(User.Identity.Name) + "');", true);
         //System.Web.HttpContext.Current.Response.Write(hp.Text);
-        GridView1.SelectRow(-1);
+        FreeGrid.SelectRow(-1);
 
         if (string.IsNullOrEmpty(User.Identity.Name))
             Response.Redirect("~/Login.aspx", false);
@@ -36,19 +36,14 @@ public partial class User : System.Web.UI.Page
         lbl.Text = "Du är inloggad som: " + User.Identity.Name;
         lbl.Visible = true;
 
-        HyperLink hp = (HyperLink)this.Master.FindControl("settings");
+        HyperLink hp = (HyperLink) this.Master.FindControl("settings");
         hp.Visible = true;
 
         SqlDataSource1.SelectParameters["UserName"].DefaultValue = User.Identity.Name;
 
-
-
-
         if (!string.IsNullOrEmpty(tbxNamn.Text + tbxTelefon.Text + tbxEmail.Text + tbxPersonNum.Text))
             return;
         
-
-
         var cmd = "SELECT * FROM Vikarie WHERE Anvandarnamn = @UserName";
 
         SqlConnection cnn = new SqlConnection();
@@ -82,33 +77,33 @@ public partial class User : System.Web.UI.Page
                 || string.IsNullOrEmpty(tbxPersonNum.Text))
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "showMessage();", true);
         }
-    
     }
 
-    protected void GridView2_RowCommand(object sender, GridViewCommandEventArgs e)
+    protected void FreeGrid_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        int id = int.Parse(e.CommandArgument.ToString());
+        int id;
+
+        if (!int.TryParse(e.CommandArgument.ToString(), out id))
+            return;
         
         if (e.CommandName == "NejCommand")
             ExecuteNejCommand(id);
 
         if (e.CommandName == "JaCommand")
             ExecuteJaCommand(id);
-
     }
 
     private void ExecuteJaCommand(int passId)
     {
-        GridView1.SelectRow(passId);
-        string id = GridView1.SelectedRow.Cells[0].Text;
-        GridView1.SelectedRow.Visible = false;
+        FreeGrid.SelectRow(passId);
+        string id = FreeGrid.SelectedRow.Cells[0].Text;
+        FreeGrid.SelectedRow.Visible = false;
 
         var cmd = "UPDATE Pass SET NyLedare = (SELECT VikarieID FROM Vikarie WHERE Anvandarnamn = @User) Where PassID = @Id";
 
         SqlConnection cnn = new SqlConnection();
         cnn.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
-
-        
+     
         using (SqlCommand cmd2 = new SqlCommand(cmd, cnn))
         {
             cmd2.Parameters.AddWithValue("@User", User.Identity.Name);
@@ -117,16 +112,15 @@ public partial class User : System.Web.UI.Page
             cmd2.ExecuteNonQuery();
             cnn.Close();
         }
-        GridView1.SelectRow(-1);
-        GridView3.DataBind();
-        GridView1.DataBind();
+        FreeGrid.SelectRow(-1);
+        SetGrid.DataBind();
+        FreeGrid.DataBind();
     } 
 
     private void ExecuteNejCommand(int passId)
     {
-        GridView1.SelectRow(passId);
-        string id = GridView1.SelectedRow.Cells[0].Text;
-        //GridView1.SelectedRow.Visible = false;
+        FreeGrid.SelectRow(passId);
+        string id = FreeGrid.SelectedRow.Cells[0].Text;
 
         SqlConnection cnn = new SqlConnection();
         cnn.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
@@ -153,11 +147,11 @@ public partial class User : System.Web.UI.Page
             cnn.Close();
         }
         //GridView1.DataSource = lstCustomer;
-        GridView1.SelectRow(-1);
-        GridView1.DataBind();
+        FreeGrid.SelectRow(-1);
+        FreeGrid.DataBind();
     }
 
-    protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
+    protected void FreeGrid_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         // System.Web.HttpContext.Current.Response.Write(e);
         if (e.Row.RowType == System.Web.UI.WebControls.DataControlRowType.DataRow)
@@ -170,11 +164,8 @@ public partial class User : System.Web.UI.Page
             e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor=this.originalstyle;");
         }
     }
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void SaveSettingsButton_Click(object sender, EventArgs e)
     {
-
-
-
         Response.Redirect("~/User.aspx", false);
 
         var cmd = @"UPDATE Vikarie SET Namn = @Namn, Telefonnummer = @Telefonnummer, Email = @Email, Personnummer = @Personnummer WHERE Anvandarnamn = @User";
@@ -194,7 +185,7 @@ public partial class User : System.Web.UI.Page
             cnn.Close();
         }
     }
-    protected void Button2_Click(object sender, EventArgs e)
+    protected void CreatePassButton_Click(object sender, EventArgs e)
     {
         int id = 0;
         var cmdx = "SELECT * FROM Vikarie WHERE Anvandarnamn = @UserName";
@@ -202,13 +193,10 @@ public partial class User : System.Web.UI.Page
         SqlConnection cnnx = new SqlConnection();
         cnnx.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
 
-
         using (SqlCommand cmd2x = new SqlCommand(cmdx, cnnx))
         {
             cmd2x.Parameters.AddWithValue("@UserName", User.Identity.Name);
             cnnx.Open();
-            //cmd2.ExecuteNonQuery();
-
             SqlDataReader nwReader = cmd2x.ExecuteReader();
             while (nwReader.Read())
             {
@@ -216,21 +204,17 @@ public partial class User : System.Web.UI.Page
             }
         }
         
-        
-        
-        
-        //Response.Redirect("~/User.aspx");
         string s1 = String.Format("{0}", Request.Form["datepicker"]);
-        string s2 = String.Format("{0}", Request.Form["someElement"]);
+        string s2 = String.Format("{0}", Request.Form["timepicker"]);
         DateTime dateValue;
-        DateTime.TryParse(s1 + " " + s2, out dateValue);
-        // DateTime t = Convert.ToDateTime(s1 + " " + s2);
-        int anl = DropDownList1.SelectedIndex + 1;
-        int pass = DropDownList2.SelectedIndex + 1;
+        if (!DateTime.TryParse(s1 + " " + s2, out dateValue))
+            return;
+
+        int anl = DropDownListFacility.SelectedIndex + 1;
+        int pass = DropDownListTrainingCategory.SelectedIndex + 1;
         ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('" + anl.ToString() + "');", true); 
         SqlConnection cnn = new SqlConnection();
         cnn.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
-        //SqlConnection cnn = new SqlConnection("Data Source=MAGNUS-HP\\SQLEXPRESS;Initial Catalog=FriskisSvettis;Integrated Security=True");
 
         var cmd =
             @"INSERT INTO Pass (Datum, Anlaggning, OrdinarieLedare, NyLedare, TraningsForm, AntalNej)
@@ -242,7 +226,6 @@ public partial class User : System.Web.UI.Page
             cmd2.Parameters.AddWithValue("@Anlaggning", anl.ToString());
             cmd2.Parameters.AddWithValue("@OrdinarieLedare", id.ToString());
             cmd2.Parameters.AddWithValue("@TraningsForm", pass.ToString());
-            //cmd2.Parameters.AddWithValue("@Email", "");
             cnn.Open();
             cmd2.ExecuteNonQuery();
             cnn.Close();
@@ -251,7 +234,7 @@ public partial class User : System.Web.UI.Page
         //ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('" + DropDownList1.SelectedItem.Value + "');", true); 
     }
 
-    protected void Button3_Click(object sender, EventArgs e)
+    protected void CancelButton_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/User.aspx");
     }
