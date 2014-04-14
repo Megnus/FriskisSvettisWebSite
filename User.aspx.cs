@@ -39,7 +39,7 @@ public partial class User : System.Web.UI.Page
         HyperLink hp = (HyperLink) this.Master.FindControl("settings");
         hp.Visible = true;
 
-        SqlDataSource1.SelectParameters["UserName"].DefaultValue = User.Identity.Name;
+        SqlDataSourceUser.SelectParameters["UserName"].DefaultValue = User.Identity.Name;
 
         if (!string.IsNullOrEmpty(tbxNamn.Text + tbxTelefon.Text + tbxEmail.Text + tbxPersonNum.Text))
             return;
