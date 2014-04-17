@@ -275,3 +275,23 @@ a.round-button:hover {
     border-top-color:inherit;
     border-top-width:1px;
 }
+
+#sitemappath-wrapper {
+    height:2px;
+    margin-top:0px;
+}
+
+#sitemappath-wrapper > span {
+    padding-right:10px;
+    padding-left:10px;
+    background-color:white;
+    margin-left:10px;
+}
+
+#master-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px;
+    font-family: Calibri;
+    font-size: 14px;
+}

@@ -1,42 +1,48 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>FS Vakanta pass</title>
-    <link rel="stylesheet" type="text/css" href="css/global.css" />
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/jquery-ui-1.10.4.custom.js"></script>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div style="margin-left: auto; margin-right: auto; width: 700px; font-family: Calibri; font-size: 14px;">
-            <asp:Panel ID="LinksPanel" Runat="server" Width="99.5%" Direction="RightToLeft" Height="0px">
-                <asp:label ID="UserLink" CssClass="header-label" Runat="server" ForeColor="#666666" Font-Names="Verdana" Font-Size="Smaller" EnableTheming="False" BackColor="White" Visible="False">
-                    [AdminLink]
-                </asp:label>
-                <asp:HyperLink ID="settings"  CssClass="header-label" NavigateUrl="~/User.aspx?Settings" Runat="server" ForeColor="#666666" Font-Names="Verdana" Font-Size="Smaller" EnableTheming="False" BackColor="White" Visible="False" >
-                    Inställningar
-                </asp:HyperLink> 
-                <asp:LoginStatus ID="LoginStatusControl" CssClass="header-label" Runat="server" ForeColor="#666666" Font-Names ="Verdana" Font-Size="Smaller" EnableTheming="False" LogoutAction="Redirect" LogoutPageUrl="~/Default.aspx" BackColor="white"/>
-            </asp:Panel>
-            <hr id="header-line" />
-            <br/>
-            <div>
-                <table id="header-table" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td id="left-cell">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logga.png" Height="83px" ImageAlign="Middle" Width="84px" />
-                            <span id="header-text">Vakanta pass som behöver vikarie</span>
-                        </td>
-                        <td>
-                            <asp:ContentPlaceHolder id="head" runat="server"></asp:ContentPlaceHolder>
-                        </td>
-                    </tr>
-                </table>
+<html>
+    <head runat="server">
+        <title>FS Vakanta pass</title>
+        <link rel="stylesheet" type="text/css" href="css/global.css" />
+        <script src="js/jquery-1.10.2.js"></script>
+        <script src="js/jquery-ui-1.10.4.custom.js"></script>
+    </head>
+    <body>
+        <form id="form1" runat="server">
+            <div id="master-wrapper">
+                <asp:Panel ID="LinksPanel" runat="server">
+                    <asp:label ID="UserLink" CssClass="header-label" Runat="server" EnableTheming="False" ForeColor="#666666" Font-Names="Verdana" Font-Size="0.8em" BackColor="White" Visible="False">
+                        [AdminLink]
+                    </asp:label>
+                    <asp:HyperLink ID="settings" CssClass="header-label" NavigateUrl="~/User.aspx?Settings" Runat="server">
+                        Inställningar
+                    </asp:HyperLink> 
+                    <asp:LoginStatus ID="LoginStatusControl" CssClass="header-label" Runat="server" LogoutAction="Redirect" LogoutPageUrl="~/Default.aspx" />
+                </asp:Panel>
+
+                <div id="sitemappath-wrapper">
+                    <span>
+                        <asp:SiteMapPath ID="SiteMapPath1" runat="server" ></asp:SiteMapPath>
+                    </span>
+                </div>
+                <hr id="header-line" />
+                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+                <br/>
+                <div>
+                    <table id="header-table" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td id="left-cell">
+                                <asp:Image ID="ImageLogga" runat="server" ImageUrl="~/Images/logga.png" ImageAlign="Middle" Height="84px" Width="84px" />
+                                <span id="header-text">Vakanta pass som behöver vikarie</span>
+                            </td>
+                            <td>
+                                <asp:ContentPlaceHolder id="head" runat="server"></asp:ContentPlaceHolder>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
             </div>
-            <meta charset="utf-8" />
-            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
-        </div>
-    </form>
-</body>
+        </form>
+    </body>
 </html>

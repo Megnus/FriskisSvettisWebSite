@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="Default.aspx" title="Hem">
+        <siteMapNode url="Secure/Admin.aspx" title="Administratör" roles="Administratör" />
+        <siteMapNode url="User.aspx" title="Användare" />
+        <siteMapNode url="Login.aspx" title="Login" />
+    </siteMapNode>
+</siteMap>
