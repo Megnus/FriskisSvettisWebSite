@@ -67,9 +67,9 @@
                 <ItemStyle CssClass="hiddencol"></ItemStyle>
             </asp:BoundField>
             <asp:BoundField DataField="Datum" HeaderText="Datum" SortExpression="Datum" />
-            <asp:BoundField DataField="Anvandarnamn" HeaderText="Ledare" SortExpression="Anvandarnamn" />            
+            <asp:BoundField DataField="Namn1" HeaderText="Ledare" SortExpression="Namn1" />            
             <asp:BoundField DataField="Namn" HeaderText="Anläggning" SortExpression="Namn" />
-            <asp:BoundField DataField="Namn1" HeaderText="Pass" SortExpression="Namn1" />
+            <asp:BoundField DataField="Namn2" HeaderText="Pass" SortExpression="Namn2" />
             <asp:ButtonField ButtonType="Button" HeaderText="Tacka ja" CommandName="JaCommand" Text="Ja" />
             <asp:ButtonField ButtonType="Button" HeaderText="Tacka nej" CommandName="NejCommand" Text="Nej" />
         </Columns>

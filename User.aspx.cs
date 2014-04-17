@@ -16,10 +16,8 @@ public partial class User : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-        
-        //ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('" + Roles.GetRolesForUser(User.Identity.Name) + "');", true);
-        //System.Web.HttpContext.Current.Response.Write(hp.Text);
+        /*ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('" + Roles.GetRolesForUser(User.Identity.Name) + "');", true);
+        /System.Web.HttpContext.Current.Response.Write(hp.Text);*/
         FreeGrid.SelectRow(-1);
 
         if (string.IsNullOrEmpty(User.Identity.Name))
@@ -54,7 +52,6 @@ public partial class User : System.Web.UI.Page
         {
             cmd2.Parameters.AddWithValue("@UserName", User.Identity.Name);
             cnn.Open();
-            //cmd2.ExecuteNonQuery();
 
             SqlDataReader nwReader = cmd2.ExecuteReader();
             while (nwReader.Read())

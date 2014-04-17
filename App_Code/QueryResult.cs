@@ -30,7 +30,7 @@ public class QueryResult : System.Web.UI.Page
         con.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
         cmd = new SqlCommand();
 
-        cmd.CommandText = @"SELECT DISTINCT Pass.PassID, Pass.Datum, Anlaggning.Namn, Vikarie.Anvandarnamn, Traningsform.Namn FROM Pass 
+        cmd.CommandText = @"SELECT DISTINCT Pass.PassID, Pass.Datum, Anlaggning.Namn, Vikarie.Namn, Traningsform.Namn FROM Pass 
                             LEFT JOIN Vikarie ON Pass.OrdinarieLedare = Vikarie.VikarieID 
                             LEFT JOIN Anlaggning ON Pass.Anlaggning = Anlaggning.AnlaggningID 
                             LEFT JOIN Traningsform ON Pass.TraningsForm = Traningsform.TraningsformID 
