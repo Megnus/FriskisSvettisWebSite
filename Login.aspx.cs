@@ -23,7 +23,6 @@ public partial class Login : System.Web.UI.Page
         ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('user created...", true);
         SqlConnection cnn = new SqlConnection();
         cnn.ConnectionString = ConfigurationManager.ConnectionStrings["FriskisSvettisConnectionString"].ConnectionString;
-        //SqlConnection cnn = new SqlConnection("Data Source=MAGNUS-HP\\SQLEXPRESS;Initial Catalog=FriskisSvettis;Integrated Security=True");
 
         var cmd =
             @"INSERT INTO Vikarie (Anvandarnamn, Namn, Telefonnummer, Email, Personnummer)

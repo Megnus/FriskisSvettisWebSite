@@ -1,2 +1,2 @@
-aspnet_regsql -S MAGNUS-HP\SQLEXPRESS -E -d FriskisSvettis -ed
-aspnet_regsql -S MAGNUS-HP\SQLEXPRESS -E -d FriskisSvettis -t Comics -et
+aspnet_regsql -S localhost\SQLEXPRESS -E -d FriskisSvettis -ed
+aspnet_regsql -S localhost\SQLEXPRESS -E -d FriskisSvettis -t Pass -et

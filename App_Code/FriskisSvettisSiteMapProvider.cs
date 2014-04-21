@@ -15,13 +15,6 @@ public class FriskisSvettisSiteMapProvider : StaticSiteMapProvider
     string _connect;
     SiteMapNode _root;
 
-    public FriskisSvettisSiteMapProvider()
-    {
-        //
-        // TODO: Add constructor logic here
-        //
-    }
-
     public override void Initialize(string name, NameValueCollection attributes)
     {
         base.Initialize(name, attributes);
